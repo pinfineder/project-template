@@ -1,181 +1,110 @@
 # Koodi101 Project Template
 
-## Frontend & Backend
+## Forking and cloning the repository
 
-### How to run backend and frontend using docker-compose?
+Start by forking the repository
 
-```shell
-docker-compose build
-docker-compose up
+> If you work in a group, only one person needs to fork the repository.
+> The others need to be members of the repository. See [collaborating with other users](#collaborating)
 
-Hit Ctrl+C to stop the process
-```
+Then clone the forked repository using SSH
 
-What if I want to run the project in the background?
+    git clone git@github.com:<user>/koodi101-template.git
 
-```shell
-docker-compose build
-docker-compose up -d
-```
+> When you use SSH to clone a repository, you need a [private key]() on your account which is authorized to pull (read) the repository.
+>
+> Using SSH allows you to push (write) to the repository without providing you username and password! Handy, right?
 
-**DO NOTE:** when you run the project with docker-compose on your own server, you need to do the following
+## Running the project
 
-```shell
-export ENDPOINT='http://195.201.28.137:9000'
-docker-compose build
-docker-compose up -d
-```
+Start by going to the cloned repository in a treminal
 
-Replace 195.201.28.137 with the ip address of your team's server.
+    cd koodi101-template
 
-Nice, how can I now see if the project is already running?
+> Note that for the environment variables to load correctly, you can't be in a subfolder of koodi101-template
 
-```shell
-docker-compose ps
-```
+Then build the docker images and start the services
 
-Cool, how can I stop the project from running and start from scratch
+    docker-compose build
+    docker-compose up
 
-```shell
-docker-compose down --rmi all --remove-orphans
-```
+Or with a single command
 
-This also deletes the built docker images, if you do not want this, you can also just run
+    docker-compose up --build
 
-```shell
-docker-compose down
-````
+> Hit Ctrl+C to stop the processes
 
-### How to run the backend and frontend without Docker?
+<details>
+<summary> Optionally you can run the process in the background </summary>
+<br>
+
+Add `-d` to the docker-compose commands.
+
+    docker-compose build
+    docker-compose up -d
+
+Or with a single command
+
+    docker-compose up --build -d
+
+> `-d` comes from the word _detached_
+
+To see if the project is running
+
+    docker-compose ps
+
+To stop the running background processes and remove the built images
+
+    docker-compose down --rmi all --remove-orphans
+
+> If the processes are not running `docker-compose down` also removes the _containers_ and images
+
+If you don't want to remove the images, you can just run
+
+    docker-compose down
+
+</details>
+
+## Running the project with only Node.js
 
 Prerequisites
-* [nodejs](http://nodejs.org)
 
-#### Backend
+- [nodejs](http://nodejs.org)
 
-```shell
+### Backend
+
+Go to the `backend` folder using `cd`, install the dependencies and start the backend node process
+
     cd backend
     npm install
     npm run dev
-```
 
-* The backend is now running in [http://localhost:9000](http://localhost:9000/api/greeting)
+The backend is now running in [http://localhost:9000](http://localhost:9000/api/greeting)
 
-#### Frontend
+### Frontend
 
-```shell
+In another terminal, go to the `frontend` folder, install its dependencies and start the frontend node process
+
     cd frontend
     npm install
     npm start
-```
 
-* The frontend is now running in [http://localhost:8000](http://localhost:8000)
+The frontend is now running in [http://localhost:8000](http://localhost:8000)
 
+## Collaborating
 
-## Internet of Things (IoT)
+Collaboration is the heart of Open Source software development in GitHub.
 
-### Raspberry pi – first time setup
-1. Login with **pi:raspberry**
-2. Type ```sudo raspi-config```
-3. Change the password for pi user to something else
-4. Under network options, configure the wifi
-5. Under localization options, configure keyboard layout
-6. Under interfacing options, enable **SPI** and **I2C**
-7. Exit the raspi-config
+> Only the owner of the forked repository in your group needs to add the collaborators
 
-RPI should now connect to wifi. You can check the ip address by typing
-```ip addr```
+After creating/forking a repository, you may add collaborators to it:
 
-It should produce output like
-```
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
-       valid_lft forever preferred_lft forever
-2: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
-    link/ether b8:27:eb:f9:6a:c2 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.1.101/24 brd 192.168.1.255 scope global wlan0
-       valid_lft forever preferred_lft forever
-    inet6 fe80::799c:261a:a62:b56a/64 scope link 
-       valid_lft forever preferred_lft forever
-```
-In this example, the ip address would be **192.168.1.101**
+In the GitHub repository page click `settings -> collaborators`, or
 
-If you want to use ssh to connect to your RPI, you can do it by writing
-```
-sudo systemctl enable ssh
-sudo systemctl start ssh
-```
+Replace `<your username>` with you username and go to the following web page
 
-Now you can connect from your own machine with ```ssh pi@<ip>``` if you are in the same network.
+    https://github.com/<your username>/koodi101-template/settings/access
 
-### Setting up the sensor
-To read data from the DHT11 humidity sensor with Raspberry Pi, it needs to be connected to the device. The sensor has three pins which need to be connected to corresponding IO-pins in Raspberry: VCC (power), ground and data. Each pin is labeled in the sensor. Corresponding pins in the IOT-device can be seen from [Raspberry Pi's website](https://www.raspberrypi.org/documentation/usage/gpio/), or with the `pinout` command on Raspberry's command line. 
+And, by searching their username, invite your group members to allow them to allow pushing (making changes) to the repository.
 
-**The default data pin is set to GPIO4.** This can be changed by setting the desired pin to the `GPIO` environment variable e.g. when running the scipt with the command (more examples about running the script below):
-```
-GPIO=14 python3 rpi.py
-```
-
-### Run the project
-Let's update our system and install some needed libraries.
-```
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install python3-pip git
-sudo pip3 install requests Adafruit_DHT
-```
-
-To test if our application works, you can create a "request bin" for
-testing purposes in [requestbin](https://requestb.in).
-You will get a bucket with url similiar to *https://requestb.in/v6lrggv6*
-
-First clone your forked version of this repository to the Rasperry pi and go to the iot folder
-```
-git clone <url>
-```
-
-You can now try our app by starting it with
-```
-ENDPOINT=https://requestb.in/v6lrggv6 python3 rpi.py
-```
-
-Your requests should appear into your browser after you refresh it.
-
-### Starting the app automatically
-
-One way to keep raspberry sending information without manual
-work, is to use cron to run our script every minute.
-
-That can be achieved by opening crontab editor by typing ```crontab -e```
-
-Window will open and you can append the following line at end of the file,
-of course replacing the endpoint with a correct one.
-```
-* * * * * ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/rpi.py >> /home/pi/rpi.log 2>&1
-```
-So what does this mean?
-* **\* \* \* \* \*** ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/rpi.py >> /home/pi/rpi.log 2>&1
-    * When to run the script, *see below*
-* \* \* \* \* \* **ENDPOINT=https://requestb.in/1ljyjs61** python3 /home/pi/koodi101-template/iot/rpi.py >> /home/pi/rpi.log 2>&1
-    * Pass environmental variable for script to be executed
-* \* \* \* \* \* ENDPOINT=https://requestb.in/1ljyjs61 **python3 /home/pi/koodi101-template/iot/rpi.py** >> /home/pi/rpi.log 2>&1
-    * Normal command to run a script with python
-* \* \* \* \* \* ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/rpi.py **>> /home/pi/rpi.log** 2>&1
-    * **Append** output to a file
-* \* \* \* \* \* ENDPOINT=https://requestb.in/1ljyjs61 python3 /home/pi/koodi101-template/iot/rpi.py >> /home/pi/rpi.log **2>&1**
-    * By default, error messages wouldn't be logged into the file.
-      With this definition, we redirect the to standard output and
-      therefore into the same file.
-
-Cron works by comparing current time to parameters at the beginning of every line.
-If it matches, it will run the script.
-
-Our example is run every minute, although
-it should match at anytime, why is it so? Well, cron runs only every minute, so
-that is why this will work and that is why we can't schedule it to run more often.
-
-There exist cool tool to "translate" cron time entries into human readable form:
-[https://crontab.guru](https://crontab.guru)
+Upon inviting your group members, they will receive the invitation via email. Only after accepting the invitation will they be able to push to the repository.

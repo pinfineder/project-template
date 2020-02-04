@@ -11,13 +11,13 @@ Then clone the forked repository using SSH
 
     git clone git@github.com:<user>/koodi101-template.git
 
-> When you use SSH to clone a repository, you need a [private key]() on your account which is authorized to pull (read) the repository.
+> When you use SSH to clone a repository, you need a [private key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on your account which is authorized to pull (read) the repository.
 >
 > Using SSH allows you to push (write) to the repository without providing you username and password! Handy, right?
 
 ## Running the project
 
-Start by going to the cloned repository in a treminal
+Start by going to the cloned repository in a terminal
 
     cd koodi101-template
 
@@ -97,14 +97,10 @@ Collaboration is the heart of Open Source software development in GitHub.
 
 > Only the owner of the forked repository in your group needs to add the collaborators
 
-After creating/forking a repository, you may add collaborators to it:
+After creating/forking a repository, owner may add collaborators to it alternatively in the GitHub repository page by clicking `settings -> collaborators` or by going to the web page by the following URL where `<username>` is replaced by a repository owner's username
 
-In the GitHub repository page click `settings -> collaborators`, or
+    https://github.com/<username>/koodi101-template/settings/access
 
-Replace `<your username>` with you username and go to the following web page
-
-    https://github.com/<your username>/koodi101-template/settings/access
-
-And, by searching their username, invite your group members to allow them to allow pushing (making changes) to the repository.
+And, by searching usernames of other students (collaborators), owner can invite them as group members to allow them pushing (making changes) to the repository.
 
 Upon inviting your group members, they will receive the invitation via email. Only after accepting the invitation will they be able to push to the repository.

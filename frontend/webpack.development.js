@@ -30,7 +30,7 @@ module.exports = {
     new ExtractTextPlugin('[name].[hash:8].css'),
     new webpack.DefinePlugin({
       'process.env': {
-        ENDPOINT: JSON.stringify(process.env.ENDPOINT || 'http://localhost:9000'),
+        BACKEND_PORT: process.env.BACKEND_PORT,
       },
     }),
   ],

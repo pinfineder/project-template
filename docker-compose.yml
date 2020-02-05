@@ -7,15 +7,19 @@ services:
       - ./frontend/src:/usr/src/app/src
     ports:
       - 8000:8000
+    # Frontend starts after backend
     depends_on:
       - backend
     environment:
-      - ENDPOINT=${ENDPOINT}
+      - BACKEND_PORT=${BACKEND_PORT}
+
   backend:
     build: backend
     command: npm run dev
+    # Mount these folders to the container to update them
+    # without restarting docker-compose
     volumes:
       - ./backend/src:/usr/src/app/src
       - ./backend/db:/usr/src/app/db
     ports:
-      - 9000:9000
+      - ${BACKEND_PORT}:9000

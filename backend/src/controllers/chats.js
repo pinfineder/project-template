@@ -1,12 +1,11 @@
 const database = require('../database');
 
 exports.list = async (ctx) => {
-  let options = {};
+  const options = {};
 
-  let result = await database.Chat.findAll(options);
-  let chats = await Promise.all(result.map(chat => chat.toJSON()));
+  const chats = await database.Chat.findAll(options);
 
-  let response = {
+  const response = {
     results: chats,
   };
 
@@ -16,8 +15,8 @@ exports.list = async (ctx) => {
 exports.create = async (ctx) => {
   const params = ctx.request.body;
 
-  const chat = await database.Chat.create({message: params.message});
+  const chat = await database.Chat.create({ message: params.message });
 
-  ctx.body = await chat.toJSON();
+  ctx.body = chat;
   ctx.status = 201;
 };

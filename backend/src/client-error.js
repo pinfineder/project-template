@@ -1,4 +1,4 @@
-var ClientError = module.exports = function (code, status, info) {
+const ClientError = function ClientError(code, status, info) {
   this.code = code || 'USER_ERROR';
   this.status = status || 400;
   this.info = info || '';
@@ -10,10 +10,8 @@ ClientError.middleware = async (next) => {
   try {
     await next;
   } catch (err) {
-    var response;
-
     if (err instanceof ClientError) {
-      response = {
+      const response = {
         status: err.status,
         userMessage: err.code,
         errorCode: err.code,
@@ -22,7 +20,7 @@ ClientError.middleware = async (next) => {
       this.body = response;
       this.status = err.status;
     } else {
-      response = {
+      const response = {
         status: 500,
         userMessage: 'Internal server error',
         errorCode: 'SERVER_ERROR',
@@ -33,3 +31,5 @@ ClientError.middleware = async (next) => {
     }
   }
 };
+
+module.exports = ClientError;

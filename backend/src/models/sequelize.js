@@ -1,8 +1,9 @@
-var Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 
-var sequelize = new Sequelize({
+const sequelize = new Sequelize({
   logging: false,
   dialect: 'sqlite',
+  // This path is relative to /backend folder unlike with require
   storage: './db/chat.sqlite',
 });
 

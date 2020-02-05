@@ -8,7 +8,8 @@ const chats = require('./controllers/chats');
 const greeting = require('./controllers/greeting');
 const sensors = require('./controllers/sensors');
 
-const app = module.exports = new Koa();
+const app = new Koa();
+module.exports = app;
 
 app.use(logger());
 

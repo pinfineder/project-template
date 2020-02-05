@@ -1,21 +1,23 @@
-var Sequelize = require('sequelize');
-var sequelize = require('./sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('./sequelize');
 
-var ChatMessage = sequelize.define('chats', {
+const Chat = sequelize.define('chats', {
   message: Sequelize.TEXT,
 }, {
   timestamps: true,
-  instanceMethods: {
-    toJSON: async function () {
-      return {
-        // This is a unique id that is generated automatically
-        id: this.id,
-        // This also comes for free
-        createdAt: this.createdAt,
-        message: this.message,
-      };
-    },
-  },
 });
 
-module.exports = ChatMessage;
+// toJSON method is automatically called when the object is serialized in Koa
+Chat.prototype.toJSON = function toJSON() {
+  return {
+    // This is a unique id for each chat
+    id: this.id,
+    // Id and timestamps are generated automatically
+    createdAt: this.createdAt,
+
+    // Message was added on the POST request
+    message: this.message,
+  };
+};
+
+module.exports = Chat;

@@ -1,23 +1,24 @@
-var Sequelize = require('sequelize');
-var sequelize = require('./sequelize');
+const Sequelize = require('sequelize');
+const sequelize = require('./sequelize');
 
-var SensorEntry = sequelize.define('sensor', {
+const SensorEntry = sequelize.define('sensor_entries', {
   temperature: Sequelize.FLOAT,
-  humidity: Sequelize.FLOAT
+  humidity: Sequelize.FLOAT,
 }, {
   timestamps: true,
-  instanceMethods: {
-    toJSON: async function () {
-      return {
-        // This is a unique id that is generated automatically
-        id: this.id,
-        // This also comes for free
-        timestamp: this.createdAt,
-        temperature: this.temperature,
-        humidity: this.humidity
-      };
-    },
-  },
 });
+
+// toJSON method is automatically called when the object is serialized in Koa
+SensorEntry.prototype.toJSON = function toJSON() {
+  return {
+    // This is a unique id for each sensor entry
+    id: this.id,
+    // Id and timestamps are generated automatically
+    timestamp: this.createdAt,
+
+    temperature: this.temperature,
+    humidity: this.humidity,
+  };
+};
 
 module.exports = SensorEntry;

@@ -1,12 +1,7 @@
 const sequelize = require('./models/sequelize');
+const Chat = require('./models/chat');
+const SensorEntry = require('./models/sensor');
 
-exports.Chat = require('./models/chat');
-exports.Sensor = require('./models/sensor')
-
-exports.sync = (options) => {
-  return sequelize.sync(options);
-};
-
-exports.transaction = (options) => {
-  return sequelize.transaction(options);
-};
+exports.sequelize = sequelize;
+exports.Chat = Chat;
+exports.SensorEntry = SensorEntry;

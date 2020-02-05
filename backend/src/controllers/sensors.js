@@ -1,12 +1,11 @@
 const database = require('../database');
 
 exports.list = async (ctx) => {
-  let options = {};
+  const options = {};
 
-  let result = await database.Sensor.findAll(options);
-  let sensors = await Promise.all(result.map(sensor => sensor.toJSON()));
+  const sensors = await database.SensorEntry.findAll(options);
 
-  let response = {
+  const response = {
     results: sensors,
   };
 
@@ -16,8 +15,11 @@ exports.list = async (ctx) => {
 exports.create = async (ctx) => {
   const params = ctx.request.body;
 
-  const sensor = await database.Sensor.create({temperature: params.temperature, humidity: params.humidity});
+  const sensor = await database.SensorEntry.create({
+    temperature: params.temperature,
+    humidity: params.humidity,
+  });
 
-  ctx.body = await sensor.toJSON();
+  ctx.body = sensor;
   ctx.status = 201;
 };

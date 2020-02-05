@@ -19,7 +19,7 @@ module.exports = {
   },
   output: {
     path: path.resolve('build'),
-    filename: '[name].[hash:8].js'
+    filename: '[name].[hash:8].js',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -52,6 +52,6 @@ module.exports = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' }),
       },
-    ]
-  }
-}
+    ],
+  },
+};

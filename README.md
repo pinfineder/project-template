@@ -21,7 +21,7 @@ Start by going to the cloned repository in a terminal
 
     cd koodi101-template
 
-> Note that for the environment variables to load correctly, you can't be in a subfolder of koodi101-template
+> Note that for the _environment variables_ to load correctly, you can't be in a subfolder of koodi101-template
 
 Then build the docker images and start the services
 
@@ -104,3 +104,26 @@ After creating/forking a repository, owner may add collaborators to it alternati
 And, by searching usernames of other students (collaborators), owner can invite them as group members to allow them pushing (making changes) to the repository.
 
 Upon inviting your group members, they will receive the invitation via email. Only after accepting the invitation will they be able to push to the repository.
+
+### Collaborating example
+
+- Niklash on is making changes to [`src/index.jsx`](src/index.jsx), committing them and finally pushing them to GitHub.
+
+![computer1](computer1.gif)
+
+> Git commands used:
+>
+> - `git add`
+> - `git diff`
+> - `git status`
+> - `git commit -m "message"`
+> - `git push`
+
+- Severi is then pulling the changes and viewing them.
+
+![computer1](computer2.gif)
+
+> Git commands used:
+>
+> - `git pull`
+> - `git show`

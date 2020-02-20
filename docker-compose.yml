@@ -11,15 +11,24 @@ services:
     depends_on:
       - backend
     environment:
-      - BACKEND_PORT=${BACKEND_PORT}
+      - BACKEND_PORT=9000
 
   backend:
     build: backend
-    command: npm run dev
+    command: ./wait-for database:5432 -- npm run dev
     # Mount these folders to the container to update them
     # without restarting docker-compose
     volumes:
       - ./backend/src:/usr/src/app/src
       - ./backend/db:/usr/src/app/db
     ports:
-      - ${BACKEND_PORT}:9000
+      - 9000:9000
+
+  database:
+    image: postgres:10-alpine
+    environment:
+      POSTGRES_DB: project
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: root
+    ports:
+      - 5432:5432

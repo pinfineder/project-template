@@ -1,12 +1,12 @@
 {
-  "name": "koodi101-template-frontend",
+  "name": "project-template-frontend",
   "version": "0.0.1",
-  "description": "Koodi101-Template simple frontend",
+  "description": "Koodi101 project template simple frontend",
   "author": "Marko Klemetti <marko.klemetti@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/koodi101/koodi101-template.git"
+    "url": "https://github.com/koodi101/project-template.git"
   },
   "scripts": {
     "start": "webpack-dev-server --open --mode development",

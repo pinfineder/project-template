@@ -10,7 +10,7 @@ Start by forking the repository
 Then clone the forked repository using SSH
 
 ```bash
-git clone git@github.com:<user>/koodi101-template.git
+git clone git@github.com:<user>/project-template.git
 ```
 
 > When you use SSH to clone a repository, you need a [private key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) on your account which is authorized to pull (read) the repository.
@@ -22,7 +22,7 @@ git clone git@github.com:<user>/koodi101-template.git
 Start by going to the cloned repository in a terminal
 
 ```bash
-cd koodi101-template
+cd project-template
 ```
 
 Then build the docker images and start the services
@@ -94,7 +94,7 @@ Collaboration is the heart of Open Source software development in GitHub.
 After creating/forking a repository, owner may add collaborators to it alternatively in the GitHub repository page by clicking `settings -> collaborators` or by going to the web page by the following URL where `<username>` is replaced by a repository owner's username
 
 ```bash
-https://github.com/<username>/koodi101-template/settings/access
+https://github.com/<username>/project-template/settings/access
 ```
 
 And, by searching usernames of other students (collaborators), owner can invite them as group members to allow them pushing (making changes) to the repository.

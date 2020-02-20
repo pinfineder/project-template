@@ -6,10 +6,9 @@ const cors = require('kcors');
 
 const chats = require('./controllers/chats');
 const greeting = require('./controllers/greeting');
-const sensors = require('./controllers/sensors');
+const events = require('./controllers/events');
 
 const app = new Koa();
-module.exports = app;
 
 app.use(logger());
 
@@ -21,10 +20,12 @@ const publicRouter = new Router({ prefix: '/api' });
 publicRouter.post('/chats', chats.create);
 publicRouter.get('/chats', chats.list);
 
-publicRouter.post('/sensors', sensors.create);
-publicRouter.get('/sensors', sensors.list);
+publicRouter.post('/events', events.create);
+publicRouter.get('/events', events.list);
 
 publicRouter.get('/greeting', greeting.greet);
 
 app.use(publicRouter.routes());
 app.use(publicRouter.allowedMethods());
+
+module.exports = app;

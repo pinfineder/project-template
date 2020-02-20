@@ -1,7 +1,7 @@
 const sequelize = require('./models/sequelize');
 const Chat = require('./models/chat');
-const SensorEntry = require('./models/sensor');
+const Event = require('./models/event');
 
 exports.sequelize = sequelize;
 exports.Chat = Chat;
-exports.SensorEntry = SensorEntry;
+exports.Event = Event;

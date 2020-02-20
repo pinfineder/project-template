@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./sequelize');
 
-const SensorEntry = sequelize.define('sensor_entries', {
+const Event = sequelize.define('events', {
   temperature: Sequelize.FLOAT,
   humidity: Sequelize.FLOAT,
 }, {
@@ -9,7 +9,7 @@ const SensorEntry = sequelize.define('sensor_entries', {
 });
 
 // toJSON method is automatically called when the object is serialized in Koa
-SensorEntry.prototype.toJSON = function toJSON() {
+Event.prototype.toJSON = function toJSON() {
   return {
     // This is a unique id for each sensor entry
     id: this.id,
@@ -21,4 +21,4 @@ SensorEntry.prototype.toJSON = function toJSON() {
   };
 };
 
-module.exports = SensorEntry;
+module.exports = Event;

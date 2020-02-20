@@ -3,10 +3,10 @@ const database = require('../database');
 exports.list = async (ctx) => {
   const options = {};
 
-  const sensors = await database.SensorEntry.findAll(options);
+  const events = await database.SensorEntry.findAll(options);
 
   const response = {
-    results: sensors,
+    results: events,
   };
 
   ctx.body = response;

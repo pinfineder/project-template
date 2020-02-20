@@ -1,6 +1,4 @@
-FROM node:13.7.0-alpine
-
-EXPOSE 9000
+FROM node:alpine
 
 # Create app directory
 RUN mkdir -p /usr/src/app

@@ -20,7 +20,6 @@ services:
     # without restarting docker-compose
     volumes:
       - ./backend/src:/usr/src/app/src
-      - ./backend/db:/usr/src/app/db
     ports:
       - 9000:9000
 

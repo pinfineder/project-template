@@ -1,4 +1,4 @@
-FROM node:8.1.2-alpine
+FROM node:alpine
 
 # Create app directory
 RUN mkdir -p /usr/src/app
@@ -11,6 +11,5 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-EXPOSE 8000
-
+# Set default command
 CMD [ "npm", "start" ]

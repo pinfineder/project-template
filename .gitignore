@@ -1,16 +1,19 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-*.sqlite
-
-# macOS
+# OSX
 .DS_Store
-
-# Editors
-.vscode
-*.iml
-.idea
 
 # Node
 node_modules
+
+# Environment
+.env
+
+# Keys
+keys
+*.pem
+
+# Sqlite
+*.sqlite
+*.sqlite3
+
+# Editors
+.vscode

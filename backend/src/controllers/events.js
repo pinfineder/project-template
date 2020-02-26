@@ -3,10 +3,10 @@ const database = require('../database');
 exports.list = async (ctx) => {
   const options = {};
 
-  const chats = await database.Chat.findAll(options);
+  const events = await database.Event.findAll(options);
 
   const response = {
-    results: chats,
+    results: events,
   };
 
   ctx.body = response;
@@ -15,8 +15,11 @@ exports.list = async (ctx) => {
 exports.create = async (ctx) => {
   const params = ctx.request.body;
 
-  const chat = await database.Chat.create({ message: params.message });
+  const event = await database.Event.create({
+    temperature: params.temperature,
+    humidity: params.humidity,
+  });
 
-  ctx.body = chat;
+  ctx.body = event;
   ctx.status = 201;
 };

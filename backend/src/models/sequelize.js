@@ -1,9 +1,20 @@
-var Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 
-var sequelize = new Sequelize({
+const sequelize = new Sequelize({
+  username: 'root',
+  password: 'password',
+  database: 'project',
+  // This is the service name defined in docker-compose
+  host: 'database',
+  dialect: 'postgres',
   logging: false,
-  dialect: 'sqlite',
-  storage: './db/chat.sqlite',
+  operatorsAliases: '0',
+  pool: {
+    max: 30,
+    min: 1,
+    idle: 200000,
+    acquire: 1000000,
+  },
 });
 
 module.exports = sequelize;

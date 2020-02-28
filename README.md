@@ -119,7 +119,7 @@ Upon inviting your group members, they will receive the invitation via email. On
 
 ### Collaborating example
 
-- Niklash on is making changes to [`src/index.jsx`](src/index.jsx), committing them and finally pushing them to GitHub.
+- Niklash on is making changes to `src/index.jsx`, committing them and finally pushing them to GitHub.
 
 ![computer1](computer1.gif)
 

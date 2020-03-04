@@ -89,7 +89,7 @@ The database is stored in an [anonymous volume](https://docs.docker.com/storage/
 docker-compose down -v
 ```
 
-> For instance, if you edit the [models](bacend/src/models/), you need to remove the database volume 👆 for the changes to get applied
+> For instance, if you edit the [models](backend/src/models/), you need to remove the database volume 👆 for the changes to get applied
 
 <!-- TODO How to manually edit the database using `psql` -->
 

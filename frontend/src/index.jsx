@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { Chart as ChartJS } from 'chart.js/auto'
+import { Line } from 'react-chartjs-2';
 
 import './assets/stylesheets/style.css';
 
@@ -8,47 +10,66 @@ const BACKEND_PORT = process.env.BACKEND_PORT;
 const baseUrl = window.location.hostname;
 const backendUrl = `http://${baseUrl}:${BACKEND_PORT}`;
 
-// Asynchronous function for getting data from the backend /api/greeting endpoint
-const getGreetingFromBackend = async () => {
-  try {
-    const url = `${backendUrl}/api/greeting`;
-    console.log(`Getting greeting from ${url}`);
-    const response = await fetch(url);
-    return response.json();
-  } catch (error) {
-    console.error(error);
-  }
-  return { greeting: 'Could not get greeting from backend' };
-};
+// options for a chart
+const options = {
+  maintainAspectRatio: false,
+}
 
-const BackendGreeting = (props) => (
-  <div>
-    <p>
-      Backend says:
-      {' '}
-      {props.greeting}
-    </p>
-  </div>
-);
+// fetch sensor data from backend
+const getData = async () => {
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      greeting: '',
-    };
+  // the format in which data is passed to a chart
+  const data = {
+    datasets: [
+      {
+        label: 'Temperature (°C)',
+        data: [],
+        borderColor: 'rgb(220, 0, 0)',
+      },
+      {
+        label: 'Humidity (%RH)',
+        data: [],
+        borderColor: 'rgb(75, 192, 192)',
+      }
+    ],
+    labels: []
   }
 
-  async componentDidMount() {
-    const response = await getGreetingFromBackend();
-    this.setState({ greeting: response.greeting });
+  const res = await fetch(`${backendUrl}/api/events`);
+  const { results } = await res.json();
+
+  // add the fetched data into the data structure above
+  results.forEach(datapoint => {
+    data.datasets[0].data.push(datapoint.temperature);
+    data.datasets[1].data.push(datapoint.humidity);
+    data.labels.push(datapoint.createdAt);
+  });
+
+  return data;
+}
+
+const App = () => {
+  const [data, setData] = useState();
+
+  // useEffect will be run only on the first render
+  useEffect(async () => {
+    // here we get the data from the backend...
+    const chartData = await getData();
+    console.log(chartData);
+    // ...and store it for later use
+    setData(chartData);
+  }, []);
+
+  // display loading text until we have fetched the data
+  if (!data) {
+    return <div>Loading</div>
   }
 
-  render() {
-    return (
-      <BackendGreeting greeting={this.state.greeting} />
-    );
-  }
+  return (
+    <div className='chart'>
+      <Line data={data} opotions={options} />
+    </div>
+  );
 }
 
 ReactDOM.render(

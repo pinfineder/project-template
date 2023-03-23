@@ -7,7 +7,10 @@ import './assets/stylesheets/style.css';
 
 // webpack hard-codes process.env.BACKEND_PORT in the build
 const BACKEND_PORT = process.env.BACKEND_PORT;
+
+// replace baseUrl with a custom IP if backend runs on a different server, e.g. try pannu01: "95.216.207.125"
 const baseUrl = window.location.hostname;
+
 const backendUrl = `http://${baseUrl}:${BACKEND_PORT}`;
 
 // options for a chart

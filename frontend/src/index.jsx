@@ -46,11 +46,11 @@ const getData = async () => {
   shorter_results.splice(1000);
   shorter_results.reverse();*/
 
-  results.splice(0, results.lenght - 1000);
+  results.splice(0, results.length - 1000);
 
 
   // add the fetched data into the data structure above
-  shorter_results.forEach(datapoint => {
+  results.forEach(datapoint => {
     data.datasets[0].data.push(datapoint.temperature);
     data.datasets[1].data.push(datapoint.humidity);
     data.labels.push(datapoint.createdAt);

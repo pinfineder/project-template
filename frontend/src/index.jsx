@@ -9,7 +9,7 @@ import './assets/stylesheets/style.css';
 const BACKEND_PORT = process.env.BACKEND_PORT;
 
 // replace baseUrl with a custom IP if backend runs on a different server, e.g. try pannu01: "95.216.207.125"
-const baseUrl = window.location.hostname;
+const baseUrl = "95.216.207.125";
 
 const backendUrl = `http://${baseUrl}:${BACKEND_PORT}`;
 
@@ -41,12 +41,21 @@ const getData = async () => {
   const res = await fetch(`${backendUrl}/api/events`);
   const { results } = await res.json();
 
+  /*shorter_results = results;
+  shorter_results.reverse();
+  shorter_results.splice(1000);
+  shorter_results.reverse();*/
+
+  results.splice(0, results.lenght - 1000);
+
+
   // add the fetched data into the data structure above
-  results.forEach(datapoint => {
+  shorter_results.forEach(datapoint => {
     data.datasets[0].data.push(datapoint.temperature);
     data.datasets[1].data.push(datapoint.humidity);
     data.labels.push(datapoint.createdAt);
   });
+
 
   return data;
 }
